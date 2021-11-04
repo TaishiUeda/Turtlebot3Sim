@@ -34,7 +34,8 @@ services:
       - bash
       - -c
     command: >
-      "source /opt/ros/melodic/setup.bash &&
+      "sleep 5 &&
+       source /opt/ros/melodic/setup.bash &&
        source ~/catkin_ws/devel/setup.bash &&
        roslaunch turtlebot3_gazebo turtlebot3_world.launch"
 
@@ -53,6 +54,7 @@ services:
       - bash
       - -c
     command: >
-      "source /opt/ros/melodic/setup.bash &&
+      "sleep 5 &&
+       source /opt/ros/melodic/setup.bash &&
        source ~/catkin_ws/devel/setup.bash &&
        roslaunch turtlebot3_gazebo turtlebot3_simulation.launch"
