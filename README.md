@@ -12,7 +12,7 @@ Please install adequate [docker](https://www.docker.com/) according to your comp
 When run for the first time, build the docker image by a command;
 
 ```bash
-docker-compose build ros_exam
+docker-compose build ros_master
 ```
 
 After that, you can start simulator by a command;
