@@ -1,0 +1,19 @@
+version: '3'
+services:
+
+  ros_dev:
+    container_name: dev
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        LOCAL_USER: turtle
+    image: turtlebot3sim
+    environment:
+      - ROS_HOSTNAME=dev
+      - ROS_MASTER_URI=http://master:11311
+    volumes:
+      - ./goal_manager:/home/turtle/catkin_ws/src/goal_manager:rw
+    entrypoint:
+      - bash
+
