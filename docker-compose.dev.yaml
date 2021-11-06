@@ -3,17 +3,22 @@ services:
 
   ros_dev:
     container_name: dev
+    hostname: dev
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile_dev
       args:
         LOCAL_USER: turtle
     image: turtlebot3sim
     environment:
       - ROS_HOSTNAME=dev
       - ROS_MASTER_URI=http://master:11311
+      - DISPLAY=host.docker.internal:0.0
+      - LIBGL_ALWAYS_INDIRECT=0
+      ## Turtlebot model
+      - TURTLEBOT3_MODEL=waffle
     volumes:
       - ./goal_manager:/home/turtle/catkin_ws/src/goal_manager:rw
+      - ./map:/home/turtle/map:rw
     entrypoint:
       - bash
-

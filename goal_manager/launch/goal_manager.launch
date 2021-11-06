@@ -1,0 +1,14 @@
+<launch>
+  <!-- Arguments -->
+  <node pkg="goal_manager" name="goal_manager" type="goal_manager_node" output="screen">
+      <param name="map_frame" value="map" />
+      <param name="timeout_s" value="30.0" />
+      <param name="interval_s" value="5.0" />
+      <param name="initial_pose_x_m" value="-2.0" />
+      <param name="initial_pose_y_m" value="-0.5" />
+      <param name="initial_pose_w_deg" value="0.0" />
+      <param name="target_center_x_m" value="0.0" />
+      <param name="target_center_y_m" value="0.0" />
+      <param name="target_radius_m" value="2.0" />
+  </node>
+</launch>

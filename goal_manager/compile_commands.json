@@ -1,7 +1,7 @@
 [
 {
   "directory": "/home/turtle/catkin_ws/src/goal_manager/build",
-  "command": "/usr/bin/c++  -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"goal_manager\\\" -I/opt/ros/melodic/include -I/opt/ros/melodic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp    -std=c++11 -o CMakeFiles/goal_manager_node.dir/src/goal_manager_node.cpp.o -c /home/turtle/catkin_ws/src/goal_manager/src/goal_manager_node.cpp",
+  "command": "/usr/bin/c++  -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"goal_manager\\\" -I/home/turtle/catkin_ws/src/goal_manager/include -I/opt/ros/melodic/include -I/opt/ros/melodic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp    -std=c++11 -o CMakeFiles/goal_manager_node.dir/src/goal_manager_node.cpp.o -c /home/turtle/catkin_ws/src/goal_manager/src/goal_manager_node.cpp",
   "file": "/home/turtle/catkin_ws/src/goal_manager/src/goal_manager_node.cpp"
 },
 {

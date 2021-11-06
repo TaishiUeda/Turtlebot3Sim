@@ -3,6 +3,7 @@ services:
 
   ros_master:
     container_name: master
+    hostname: master
     build:
       context: .
       dockerfile: Dockerfile
@@ -20,6 +21,7 @@ services:
 
   ros_world:
     container_name: turtlebot3_world
+    hostname: turtlebot3_world
     image: turtlebot3sim
     environment:
       - ROS_HOSTNAME=turtlebot3_world
@@ -41,6 +43,7 @@ services:
 
   ros_sim:
     container_name: turtlebot3_random_walk
+    hostname: turtlebot3_random_walk
     image: turtlebot3sim
     environment:
       - ROS_HOSTNAME=turtlebot3_random_walk
@@ -61,6 +64,7 @@ services:
 
   ros_slam:
     container_name: turtlebot3_slam
+    hostname: turtlebot3_slam
     image: turtlebot3sim
     environment:
       - ROS_HOSTNAME=turtlebot3_slam
@@ -83,6 +87,7 @@ services:
 
   ros_map:
     container_name: turtlebot3_map
+    hostname: turtlebot3_map
     image: turtlebot3sim
     environment:
       - ROS_HOSTNAME=turtlebot3_map
@@ -104,6 +109,7 @@ services:
 
   ros_nav:
     container_name: turtlebot3_nav
+    hostname: turtlebot3_nav
     image: turtlebot3sim
     environment:
       - ROS_HOSTNAME=turtlebot3_nav
@@ -124,4 +130,28 @@ services:
       "sleep 5 &&
        source /opt/ros/melodic/setup.bash &&
        source ~/catkin_ws/devel/setup.bash &&
-       roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:=/home/turtle/map/map.yaml"
+       roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:=/home/turtle/map/map.yaml initial_pose_x:=-2.0 initial_pose_y:=-0.5"
+
+  ros_nav_random:
+    container_name: nav_random
+    hostname: nav_random
+    image: turtlebot3sim
+    environment:
+      - ROS_HOSTNAME=nav_random
+      - ROS_MASTER_URI=http://master:11311
+    depends_on: 
+      - ros_master
+      - ros_world
+      - ros_nav
+    volumes:
+      - ./goal_manager:/home/turtle/catkin_ws/src/goal_manager:rw
+    entrypoint:
+      - bash
+      - -c
+    command: >
+      "sleep 5 &&
+       source /opt/ros/melodic/setup.bash &&
+       cd ~/catkin_ws &&
+       catkin_make &&
+       source ~/catkin_ws/devel/setup.bash &&
+       roslaunch goal_manager goal_manager.launch"
