@@ -37,7 +37,7 @@ To start random walk, input the command;
 ```bash
 docker-compose -f .\docker-compose.yaml -f .\docker-compose.nav_random.yaml up -d
 ```
-Then, a robot in gazebo will start running about 30 second after the window of gazebo is launched.
+Then, a robot in gazebo will start running tens of seconds after the window of gazebo is launched.
 Please wait patiantly.
 
 To quit,
