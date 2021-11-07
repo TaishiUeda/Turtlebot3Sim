@@ -11,7 +11,7 @@ Robots will run rondomly with autonomous avoidance and navigation by move_base.
 
 ## Subscribed topics
 - "/move_base/status": actionlib_msgs/GoalStatusArray <br/>
-    goal status from move_mase. This is used to judge if a new goal is needed.
+    goal status from move_base. This is used to judge if a new goal is needed.
 
 ## Launcher
 Launch files are in "goal_manager/launch" directory. <br/>

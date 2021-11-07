@@ -30,7 +30,6 @@ bool GoalManager::init(){
     nh_.param("initial_pose_y_m", init_pose_.pose.pose.position.y, -0.5);
     init_pose_.pose.pose.position.z = 0.0;
     // orientation
-    init_w_deg_ = 0.0;
     nh_.param("initial_pose_w_deg", init_w_deg_, 0.0);
     init_pose_.pose.pose.orientation.x = 0.0;
     init_pose_.pose.pose.orientation.y = 0.0;
@@ -38,10 +37,12 @@ bool GoalManager::init(){
     init_pose_.pose.pose.orientation.w = cos(init_w_deg_/180.0*M_PI/2.0);
     // covariance. same as values published by rviz.
     init_pose_.pose.covariance = {
-	0.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.25, 0.0,
-	0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-	0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-	0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.06853};
+	0.25, 0.0, 0.0, 0.0, 0.0, 0.0,
+	0.0, 0.25, 0.0, 0.0, 0.0, 0.0,
+	0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+	0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+	0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+	0.0, 0.0, 0.0, 0.0, 0.0, 0.06853};
 
     // parameters for generateTarget.
     nh_.param("target_center_x_m", target_center_x_m_, 0.0);
