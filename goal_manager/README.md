@@ -13,6 +13,19 @@ Robots will run rondomly with autonomous avoidance and navigasion by move_base.
 - "/move_base/status": actionlib_msgs/GoalStatusArray <br/>
     goal status from move_mase. This is used to judge if a new goal is needed.
 
+## Launcher
+Launch files are in "goal_manager/launch" directory. <br/>
+Two launch files are provided.
+- goal_manager.launch <br/>
+   It launches only goal manager. You have to launch move_base in the advance.
+- nav_random.launch <br/>
+   It launches all of the necessary nodes to make turtlebot3 run in gazebo.
+
+You can use them by next command after build the packages;
+```bash
+roslaunch goal_manager <launch_file_name>
+```
+
 ## Parameters
  - "map_frame": frame_id for initial pose and goal pose.
  - "timeout_s": timeout to give up to reach published goal. New goal will published after timeout elasped.

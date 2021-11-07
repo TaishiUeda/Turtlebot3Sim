@@ -8,6 +8,8 @@ This includes;
 Goal positions will be generated and published by "goal_manager" packege in this repository.<br/>
 Please refer to [README.md](./goal_manager/README.md) for the detail.
 
+If you want to use "goal_manager" without docker, just copy the directory "goal_manager" to "\<your_root\>/catkin_ws/src" and build it by "catkin_make".
+
 ## Dependency
 Please install adequate [docker and docker-compose](https://www.docker.com/) according to your computers.
 
