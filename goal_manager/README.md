@@ -1,7 +1,7 @@
 # goal_manager
 
 This package publishes goals randomly for move_base.
-Robots will run rondomly with autonomous avoidance and navigasion by move_base.
+Robots will run rondomly with autonomous avoidance and navigation by move_base.
 
 ## Published topics
 - "/initialpose": geometry_msgs/PoseWithCovarianceStamped <br/>
