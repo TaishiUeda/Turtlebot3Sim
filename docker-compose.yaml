@@ -4,10 +4,7 @@ services:
   ros_master:
     container_name: master
     hostname: master
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: turtlebot3sim
+    image: ros:melodic
     environment:
       - ROS_HOSTNAME=master
       - ROS_MASTER_URI=http://localhost:11311
@@ -16,12 +13,14 @@ services:
       - -c
     command: >
       "source /opt/ros/melodic/setup.bash &&
-       source ~/catkin_ws/devel/setup.bash &&
        roscore"
 
   ros_world:
     container_name: turtlebot3_world
     hostname: turtlebot3_world
+    build:
+      context: .
+      dockerfile: Dockerfile
     image: turtlebot3sim
     environment:
       - ROS_HOSTNAME=turtlebot3_world
@@ -41,117 +40,3 @@ services:
        source ~/catkin_ws/devel/setup.bash &&
        roslaunch turtlebot3_gazebo turtlebot3_world.launch"
 
-  ros_sim:
-    container_name: turtlebot3_random_walk
-    hostname: turtlebot3_random_walk
-    image: turtlebot3sim
-    environment:
-      - ROS_HOSTNAME=turtlebot3_random_walk
-      - ROS_MASTER_URI=http://master:11311
-      ## Turtlebot model
-      - TURTLEBOT3_MODEL=waffle
-    depends_on: 
-      - ros_master
-      - ros_world
-    entrypoint:
-      - bash
-      - -c
-    command: >
-      "sleep 5 &&
-       source /opt/ros/melodic/setup.bash &&
-       source ~/catkin_ws/devel/setup.bash &&
-       roslaunch turtlebot3_gazebo turtlebot3_simulation.launch"
-
-  ros_slam:
-    container_name: turtlebot3_slam
-    hostname: turtlebot3_slam
-    image: turtlebot3sim
-    environment:
-      - ROS_HOSTNAME=turtlebot3_slam
-      - ROS_MASTER_URI=http://master:11311
-      - DISPLAY=host.docker.internal:0.0
-      - LIBGL_ALWAYS_INDIRECT=0
-      ## Turtlebot model
-      - TURTLEBOT3_MODEL=waffle
-    depends_on: 
-      - ros_master
-      - ros_world
-    entrypoint:
-      - bash
-      - -c
-    command: >
-      "sleep 5 &&
-       source /opt/ros/melodic/setup.bash &&
-       source ~/catkin_ws/devel/setup.bash &&
-       roslaunch turtlebot3_slam turtlebot3_slam.launch"
-
-  ros_map:
-    container_name: turtlebot3_map
-    hostname: turtlebot3_map
-    image: turtlebot3sim
-    environment:
-      - ROS_HOSTNAME=turtlebot3_map
-      - ROS_MASTER_URI=http://master:11311
-      ## Turtlebot model
-      - TURTLEBOT3_MODEL=waffle
-    depends_on: 
-      - ros_master
-    volumes:
-      - ./map:/home/turtle/map:rw
-    entrypoint:
-      - bash
-      - -c
-    command: >
-      "sleep 5 &&
-       source /opt/ros/melodic/setup.bash &&
-       source ~/catkin_ws/devel/setup.bash &&
-       rosrun map_server map_saver -f ~/map/map"
-
-  ros_nav:
-    container_name: turtlebot3_nav
-    hostname: turtlebot3_nav
-    image: turtlebot3sim
-    environment:
-      - ROS_HOSTNAME=turtlebot3_nav
-      - ROS_MASTER_URI=http://master:11311
-      - DISPLAY=host.docker.internal:0.0
-      - LIBGL_ALWAYS_INDIRECT=0
-      ## Turtlebot model
-      - TURTLEBOT3_MODEL=waffle
-    depends_on: 
-      - ros_master
-      - ros_world
-    entrypoint:
-      - bash
-      - -c
-    volumes:
-      - ./map:/home/turtle/map:rw
-    command: >
-      "sleep 5 &&
-       source /opt/ros/melodic/setup.bash &&
-       source ~/catkin_ws/devel/setup.bash &&
-       roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:=/home/turtle/map/map.yaml initial_pose_x:=-2.0 initial_pose_y:=-0.5"
-
-  ros_nav_random:
-    container_name: nav_random
-    hostname: nav_random
-    image: turtlebot3sim
-    environment:
-      - ROS_HOSTNAME=nav_random
-      - ROS_MASTER_URI=http://master:11311
-    depends_on: 
-      - ros_master
-      - ros_world
-      - ros_nav
-    volumes:
-      - ./goal_manager:/home/turtle/catkin_ws/src/goal_manager:rw
-    entrypoint:
-      - bash
-      - -c
-    command: >
-      "sleep 5 &&
-       source /opt/ros/melodic/setup.bash &&
-       cd ~/catkin_ws &&
-       catkin_make &&
-       source ~/catkin_ws/devel/setup.bash &&
-       roslaunch goal_manager goal_manager.launch"

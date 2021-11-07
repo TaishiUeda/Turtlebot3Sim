@@ -99,8 +99,7 @@ void GoalManager::timerCallback(const ros::TimerEvent& e){
     }
 
     double duration_s = ros::Time().now().sec - last_published_s_;
-    if ((nav_status_ == actionlib_msgs::GoalStatus::SUCCEEDED |
-         nav_status_ == actionlib_msgs::GoalStatus::PENDING |
+    if ((nav_status_ != actionlib_msgs::GoalStatus::ACTIVE |
          duration_s > timeout_s_) && (duration_s > wait_after_new_target_s_)){
 	publishTarget();
     }

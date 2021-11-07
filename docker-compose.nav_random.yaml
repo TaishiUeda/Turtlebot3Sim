@@ -1,0 +1,51 @@
+version: '3'
+services:
+
+  ros_nav:
+    container_name: turtlebot3_nav
+    hostname: turtlebot3_nav
+    image: turtlebot3sim
+    environment:
+      - ROS_HOSTNAME=turtlebot3_nav
+      - ROS_MASTER_URI=http://master:11311
+      - DISPLAY=host.docker.internal:0.0
+      - LIBGL_ALWAYS_INDIRECT=0
+      ## Turtlebot model
+      - TURTLEBOT3_MODEL=waffle
+    depends_on: 
+      - ros_master
+      - ros_world
+    entrypoint:
+      - bash
+      - -c
+    volumes:
+      - ./map:/home/turtle/map:rw
+    command: >
+      "sleep 5 &&
+       source /opt/ros/melodic/setup.bash &&
+       source ~/catkin_ws/devel/setup.bash &&
+       roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:=/home/turtle/map/map.yaml open_rviz:=false"
+
+  ros_nav_random:
+    container_name: nav_random
+    hostname: nav_random
+    image: turtlebot3sim
+    environment:
+      - ROS_HOSTNAME=nav_random
+      - ROS_MASTER_URI=http://master:11311
+    depends_on: 
+      - ros_master
+      - ros_world
+      - ros_nav
+    volumes:
+      - ./goal_manager:/home/turtle/catkin_ws/src/goal_manager:rw
+    entrypoint:
+      - bash
+      - -c
+    command: >
+      "sleep 5 &&
+       source /opt/ros/melodic/setup.bash &&
+       cd ~/catkin_ws &&
+       catkin_make &&
+       source ~/catkin_ws/devel/setup.bash &&
+       roslaunch goal_manager goal_manager.launch"

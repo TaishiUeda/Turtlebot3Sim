@@ -1,0 +1,25 @@
+version: '3'
+services:
+
+  ros_map:
+    container_name: turtlebot3_map
+    hostname: turtlebot3_map
+    image: turtlebot3sim
+    environment:
+      - ROS_HOSTNAME=turtlebot3_map
+      - ROS_MASTER_URI=http://master:11311
+      ## Turtlebot model
+      - TURTLEBOT3_MODEL=waffle
+    depends_on: 
+      - ros_master
+    volumes:
+      - ./map:/home/turtle/map:rw
+    entrypoint:
+      - bash
+      - -c
+    command: >
+      "sleep 5 &&
+       source /opt/ros/melodic/setup.bash &&
+       source ~/catkin_ws/devel/setup.bash &&
+       rosrun map_server map_saver -f ~/map/map"
+
