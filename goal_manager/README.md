@@ -32,7 +32,7 @@ roslaunch goal_manager <launch_file_name>
  - "interval_s": intercal time to check the goal status.
  - "initial_pose_x_m": x of initial position for localization by amcl. This should be same as the position in Gazebo.
  - "initial_pose_y_m": y of initial position for localization by amcl. This should be same as the position in Gazebo.
- - "initial_pose_w_deg": direction of initial pose for localization by amcl. This should be same as the position in Gazebo.
+ - "initial_pose_w_deg": direction of initial pose for localization by amcl. This should be same as the pose in Gazebo.
  - "target_center_x_m": goals will be set along a circle with center position of x set by this parameter.
  - "target_center_y_m": goals will be set along a circle with center position of y set by this parameter.
  - "target_radius_m": goals will be set along a circle with radius set by this parameter.
