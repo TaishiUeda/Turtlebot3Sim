@@ -14,7 +14,7 @@ If you want to use "goal_manager" without docker, just copy the directory "goal_
 Please install adequate [docker and docker-compose](https://www.docker.com/) according to your computers.
 
 - It was confirmed that the programs can work with Win10 and Ubuntu with X11 server without OpenGL
-- mac with M1 chip hasn't supported yet.
+- mac with M1 chip hasn't been supported yet.
 
 ## How to build the docker image
 
