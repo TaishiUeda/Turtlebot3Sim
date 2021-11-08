@@ -28,7 +28,7 @@ Then, you can start simulator by commands as followings.
  
 ## Usuage
 
-For your convinient, I reccomend to write bash or MS-DOS scripts to execute commands shown as followings.
+For your convenient, I recommend to write bash or MS-DOS scripts to execute commands shown as followings.
 
 ### Random walk
 
@@ -38,7 +38,7 @@ To start random walk, input the command;
 docker-compose -f .\docker-compose.yaml -f .\docker-compose.nav_random.yaml up -d
 ```
 Then, a robot in gazebo will start running tens of seconds after the window of gazebo is launched.
-Please wait patiantly.
+Please wait patiently.
 
 To quit,
 ```bash
@@ -52,7 +52,7 @@ To start,
 docker-compose -f .\docker-compose.yaml -f .\docker-compose.buildmap.yaml up -d
 ```
 
-Then, a map will be built gradualy. To save the map, input a command;
+Then, a map will be built gradually. To save the map, input a command;
 ```bash
 docker-compose -f .\docker-compose.yaml -f .\docker-compose.savemap.yaml up -d
 ```

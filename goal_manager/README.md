@@ -1,7 +1,7 @@
 # goal_manager
 
 This package publishes goals randomly for move_base.
-Robots will run rondomly with autonomous avoidance and navigation by move_base.
+Robots will run randomly with autonomous avoidance and navigation by move_base.
 
 ## Published topics
 - "/initialpose": geometry_msgs/PoseWithCovarianceStamped <br/>
@@ -28,8 +28,8 @@ roslaunch goal_manager <launch_file_name>
 
 ## Parameters
  - "map_frame": frame_id for initial pose and goal pose.
- - "timeout_s": timeout to give up to reach published goal. New goal will published after timeout elasped.
- - "interval_s": intercal time to check the goal status.
+ - "timeout_s": timeout to give up to reach published goal. New goal will published after timeout elapsed.
+ - "interval_s": interval time to check the goal status.
  - "initial_pose_x_m": x of initial position for localization by amcl. This should be same as the position in Gazebo.
  - "initial_pose_y_m": y of initial position for localization by amcl. This should be same as the position in Gazebo.
  - "initial_pose_w_deg": direction of initial pose for localization by amcl. This should be same as the pose in Gazebo.
