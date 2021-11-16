@@ -1,0 +1,48 @@
+version: '3'
+services:
+
+  ros_slam:
+    container_name: turtlebot3_slam
+    hostname: turtlebot3_slam
+    image: turtlebot3sim
+    environment:
+      - ROS_HOSTNAME=turtlebot3_slam
+      - ROS_MASTER_URI=http://master:11311
+      - DISPLAY=${DISPLAY}
+      ## Turtlebot model
+      - TURTLEBOT3_MODEL=waffle
+    depends_on: 
+      - ros_master
+      - ros_world
+    entrypoint:
+      - bash
+      - -c
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    command: >
+      "sleep 5 &&
+       source /opt/ros/melodic/setup.bash &&
+       source ~/catkin_ws/devel/setup.bash &&
+       roslaunch turtlebot3_slam turtlebot3_slam.launch"
+
+  ros_sim:
+    container_name: turtlebot3_random_walk
+    hostname: turtlebot3_random_walk
+    image: turtlebot3sim
+    environment:
+      - ROS_HOSTNAME=turtlebot3_random_walk
+      - ROS_MASTER_URI=http://master:11311
+      ## Turtlebot model
+      - TURTLEBOT3_MODEL=waffle
+    depends_on: 
+      - ros_master
+      - ros_world
+    entrypoint:
+      - bash
+      - -c
+    command: >
+      "sleep 5 &&
+       source /opt/ros/melodic/setup.bash &&
+       source ~/catkin_ws/devel/setup.bash &&
+       roslaunch turtlebot3_gazebo turtlebot3_simulation.launch"
+

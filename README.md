@@ -34,32 +34,49 @@ For your convenient, I recommend to write bash or MS-DOS scripts to execute comm
 
 This repository has already had a map of the world of turtlebot3_gazebo.
 To start random walk, input the command;
-```bash
-docker-compose -f .\docker-compose.yaml -f .\docker-compose.nav_random.yaml up -d
-```
+
+- For windows
+    ```dos
+    docker-compose -f docker-compose.yaml -f docker-compose.nav_random.yaml up -d
+    ```
+- For linux
+    ```bash
+    docker-compose -f docker-compose.x11.yaml -f docker-compose.nav_random.x11.yaml up -d
+    ```
 Then, a robot in gazebo will start running tens of seconds after the window of gazebo is launched.
 Please wait patiently.
 
 To quit,
-```bash
-docker-compose -f .\docker-compose.yaml -f .\docker-compose.nav_random.yaml down
-```
+- For windows
+    ```dos
+    docker-compose -f docker-compose.yaml -f docker-compose.nav_random.yaml down
+    ```
+- For linux
+    ```bash
+    docker-compose -f docker-compose.x11.yaml -f docker-compose.nav_random.x11.yaml down
+    ```
 
 ### Building and save map
 
 To start,
-```bash
-docker-compose -f .\docker-compose.yaml -f .\docker-compose.buildmap.yaml up -d
-```
+- For windows
+    ```dos
+    docker-compose -f docker-compose.yaml -f docker-compose.buildmap.yaml up -d
+    ```
+- For linux
+    ```dos
+    docker-compose -f docker-compose.x11.yaml -f docker-compose.buildmap.x11.yaml up -d
+    ```
 
 Then, a map will be built gradually. To save the map, input a command;
+For windows and linux,
 ```bash
-docker-compose -f .\docker-compose.yaml -f .\docker-compose.savemap.yaml up -d
+docker-compose -f docker-compose.yaml -f docker-compose.savemap.yaml up -d
 ```
 
 Files of the map will be saved in ```Turtlebot3Sim/map/``` on your computer. <br />
-To quit,
+To quit; For windows and linux,
 ```bash
-docker-compose -f .\docker-compose.yaml -f .\docker-compose.buildmap.yaml -f .\docker-compose.savemap.yaml down
+docker-compose -f docker-compose.yaml -f docker-compose.buildmap.yaml -f docker-compose.savemap.yaml down
 ```
 

@@ -1,0 +1,43 @@
+version: '3'
+services:
+
+  ros_master:
+    container_name: master
+    hostname: master
+    image: ros:melodic
+    environment:
+      - ROS_HOSTNAME=master
+      - ROS_MASTER_URI=http://localhost:11311
+    entrypoint:
+      - bash
+      - -c
+    command: >
+      "source /opt/ros/melodic/setup.bash &&
+       roscore"
+
+  ros_world:
+    container_name: turtlebot3_world
+    hostname: turtlebot3_world
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: turtlebot3sim
+    environment:
+      - ROS_HOSTNAME=turtlebot3_world
+      - ROS_MASTER_URI=http://master:11311
+      - DISPLAY=${DISPLAY}
+      ## Turtlebot model
+      - TURTLEBOT3_MODEL=waffle
+    depends_on: 
+      - ros_master
+    entrypoint:
+      - bash
+      - -c
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    command: >
+      "sleep 5 &&
+       source /opt/ros/melodic/setup.bash &&
+       source ~/catkin_ws/devel/setup.bash &&
+       roslaunch turtlebot3_gazebo turtlebot3_world.launch"
+
