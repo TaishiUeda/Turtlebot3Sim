@@ -69,14 +69,31 @@ To start,
     ```
 
 Then, a map will be built gradually. To save the map, input a command;
-For windows and linux,
-```bash
-docker-compose -f docker-compose.yaml -f docker-compose.savemap.yaml up -d
-```
+- For windows
+    ```dos
+    docker-compose -f docker-compose.yaml -f docker-compose.savemap.yaml up -d
+    ```
+- For linux
+    ```bash
+    docker-compose -f docker-compose.x11.yaml -f docker-compose.savemap.yaml up -d
+    ```
 
 Files of the map will be saved in ```Turtlebot3Sim/map/``` on your computer. <br />
-To quit; For windows and linux,
-```bash
-docker-compose -f docker-compose.yaml -f docker-compose.buildmap.yaml -f docker-compose.savemap.yaml down
+To quit;
+- For windows
+    ```dos
+    docker-compose -f docker-compose.yaml -f docker-compose.buildmap.yaml -f docker-compose.savemap.yaml down
+    ```
+- For linux
+    ```dos
+    docker-compose -f docker-compose.x11.yaml -f docker-compose.buildmap.yaml -f docker-compose.savemap.yaml down
+    ```
+
+### Up containers with debug messages
+
+You can check debug messages by commands withoud '-d' option.
+For example,
+```dos
+docker-compose -f docker-compose.yaml -f docker-compose.nav_random.yaml up
 ```
 
