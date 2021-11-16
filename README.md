@@ -16,6 +16,14 @@ Please install adequate [docker and docker-compose](https://www.docker.com/) acc
 - It was confirmed that the programs can work with Win10 and Ubuntu with X11 server without OpenGL
 - mac with M1 chip hasn't been supported yet.
 
+### For RaspberryPi user
+
+When you use RaspberryPi, you have to install vent kernel module. It can be installed by,
+```bash
+sudo apt install linux-modules-extra-raspi
+```
+I recommend to reboot RaspberryPi after the module is installed.
+
 ## How to build the docker image
 
 When you use this for the first time, build the docker image by a command;
@@ -55,6 +63,17 @@ To quit,
     ```bash
     docker-compose -f docker-compose.x11.yaml -f docker-compose.nav_random.x11.yaml down
     ```
+
+#### For linux user
+
+Though I have confirmed that programs can work only by commands shown above in my computers, some developers says docker containers cannot connect to the X-server because of authorization problems . <be/>
+In case programs in container cannot connect to X-server in Linux, please try commands,
+```bash
+xhost +local:turtlebot3_world
+xhost +local:turtlebot3_nav
+xhost +local:turtlebot3_slam
+```
+Those commands allow user with specific host name to connect to the X-server.
 
 ### Building and save map
 
