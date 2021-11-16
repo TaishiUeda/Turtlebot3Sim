@@ -105,7 +105,7 @@ To quit;
     ```
 - For linux
     ```dos
-    docker-compose -f docker-compose.x11.yaml -f docker-compose.buildmap.yaml -f docker-compose.savemap.yaml down
+    docker-compose -f docker-compose.x11.yaml -f docker-compose.buildmap.x11.yaml -f docker-compose.savemap.yaml down
     ```
 
 ### Up containers with debug messages
