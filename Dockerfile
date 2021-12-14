@@ -1,4 +1,5 @@
-FROM ros:melodic
+ARG BASE_IMG=ros:melodic
+FROM ${BASE_IMG}
 ARG LOCAL_USER=turtle
 
 ## set apt repository in Japan
@@ -12,8 +13,12 @@ ENV LANG="ja_JP.UTF-8" \
   LANGUAGE="ja_JP:ja" \ 
   LC_ALL="ja_JP.UTF-8" \ 
   TZ="JST-9"
-
-## install additional packages
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -y tzdata
+## install ROS
+RUN apt-get update && apt-get install -y lsb-release curl 
+RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -
 RUN apt-get update && \
     apt-get install -y \
     ros-melodic-desktop-full \
@@ -39,6 +44,7 @@ RUN groupadd -g 1000 developer && \
 
 RUN echo "Defaults visiblepw"             >> /etc/sudoers
 RUN echo "${LOCAL_USER} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+RUN apt-get update && apt-get install -y git build-essential bash
 USER ${LOCAL_USER}
 WORKDIR /home/${LOCAL_USER}
 
@@ -49,11 +55,11 @@ RUN git clone https://github.com/ROBOTIS-GIT/turtlebot3.git
 RUN git clone https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
 RUN git clone https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
 WORKDIR /home/${LOCAL_USER}/catkin_ws
-RUN bash -c "source /opt/ros/melodic/setup.bash && catkin_make"
-
+RUN sudo apt-get install -y checkinstall python-rosinstall python-rosdep
+RUN sudo rosdep init && rosdep update
 ## add init setting command to .bashrc
-RUN echo source ~/catkin_ws/devel/setup.bash > ~/.bashrc
-RUN rosdep update
+RUN /bin/bash -c "source /opt/ros/melodic/setup.bash && \
+   catkin_make"
 # install packages related with gazebo and simulation
 RUN sudo apt-get update && \
     sudo apt-get install -y \

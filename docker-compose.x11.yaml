@@ -21,11 +21,19 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        - BASE_IMG=nvidia/cudagl:11.4.2-base-ubuntu18.04
     image: turtlebot3sim
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
     environment:
       - ROS_HOSTNAME=turtlebot3_world
       - ROS_MASTER_URI=http://master:11311
-      - DISPLAY=${DISPLAY}
+      - DISPLAY=$DISPLAY
+      - LIBGL_ALWAYS_INDIRECT=0
       ## Turtlebot model
       - TURTLEBOT3_MODEL=waffle
     depends_on: 

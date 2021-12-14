@@ -5,10 +5,16 @@ services:
     container_name: turtlebot3_nav
     hostname: turtlebot3_nav
     image: turtlebot3sim
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
     environment:
       - ROS_HOSTNAME=turtlebot3_nav
       - ROS_MASTER_URI=http://master:11311
-      - DISPLAY=${DISPLAY}
+      - DISPLAY=$DISPLAY
+      - LIBGL_ALWAYS_INDIRECT=0
       ## Turtlebot model
       - TURTLEBOT3_MODEL=waffle
     depends_on: 
